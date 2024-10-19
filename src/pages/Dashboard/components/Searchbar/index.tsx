@@ -5,7 +5,13 @@ import { IconButton } from "~/components/Buttons/IconButton";
 import TextField from "~/components/TextField";
 import routes from "~/router/routes";
 import * as S from "./styles";
-export const SearchBar = () => {
+
+
+interface Props {
+  refreshData: () => void
+}
+
+export const SearchBar = ({refreshData}: Props) => {
   const history = useHistory();
 
   const goToNewAdmissionPage = () => {
@@ -16,7 +22,7 @@ export const SearchBar = () => {
     <S.Container>
       <TextField  placeholder="Digite um CPF válido" />
       <S.Actions>
-        <IconButton aria-label="refetch">
+        <IconButton aria-label="refetch" onClick={refreshData}>
           <HiRefresh />
         </IconButton>
         <Button onClick={() => goToNewAdmissionPage()}>Nova Admissão</Button>

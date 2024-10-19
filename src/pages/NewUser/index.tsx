@@ -5,11 +5,14 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 import { IconButton } from "~/components/Buttons/IconButton";
 import { useHistory } from "react-router-dom";
 import routes from "~/router/routes";
-import { validateDocument, validateEmail, validateName } from "~/utils/functions";
+import { formatDate, validateDocument, validateEmail, validateName } from "~/utils/functions";
 import { useState } from "react";
 import { cpfMask, removeMask } from "~/utils/masks";
+import useApi from "~/hooks/useApi";
+import { UserData } from "~/types";
 
 const NewUserPage = () => {
+  const { loading, error, sendRequest } = useApi<UserData[]>();
   const history = useHistory();
   const goToHome = () => {
     history.push(routes.dashboard);
@@ -21,7 +24,18 @@ const NewUserPage = () => {
   const [showError, setShowError] = useState('')
 
   const registerUser = () => {
-    //TODO: fazer chamada de salvar usuario e navegar para dashboard
+    sendRequest({ 
+      headers: {'Content-Type': 'application/json'},
+      method: 'POST', 
+      url: `${import.meta.env.VITE_API_HOST}/registrations`, 
+      data: {
+        email,
+        employeeName: name,
+        cpf: removeMask(document),
+        admissionDate: formatDate(admissionDate),
+        status: 'REVIEW'
+      } 
+    })
   }
 
   return (

@@ -44,6 +44,11 @@ export const validateDocument = (document: string): boolean => {
 }
 
 export const validateName = (name: string): boolean => {
-    const nameRegex = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ]*\s+[A-Za-zÀ-ÿ\s]*$/;
-    return nameRegex.test(name) && name.replace(/[^A-Za-zÀ-ÿ]/g, '').length >= 2;
+    const nameRegex = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ]*\s+[A-Za-zÀ-ÿ\s]*$/
+    return nameRegex.test(name) && name.replace(/[^A-Za-zÀ-ÿ]/g, '').length >= 2
+}
+
+export const formatDate = (dateString: string): string => {
+    const [year, month, day] = dateString.split('-')
+    return `${day}/${month}/${year}`
 }

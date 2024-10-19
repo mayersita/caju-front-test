@@ -6,32 +6,42 @@ import {
   HiOutlineCalendar,
   HiOutlineTrash,
 } from "react-icons/hi";
+import { UserData } from "~/types";
+import { StatusTypes } from "~/utils/consts";
 
 type Props = {
-  data: any;
+  data: UserData;
+  actionCard: (data: UserData, status: string) => void
 };
 
-const RegistrationCard = (props: Props) => {
+const RegistrationCard = ({data, actionCard}: Props) => {
   return (
     <S.Card>
       <S.IconAndText>
         <HiOutlineUser />
-        <h3>{props.data.employeeName}</h3>
+        <h3>{data.employeeName}</h3>
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineMail />
-        <p>{props.data.email}</p>
+        <p>{data.email}</p>
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineCalendar />
-        <span>{props.data.admissionDate}</span>
+        <span>{data.admissionDate}</span>
       </S.IconAndText>
       <S.Actions>
-        <ButtonSmall bgcolor="rgb(255, 145, 154)" >Reprovar</ButtonSmall>
-        <ButtonSmall bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
-        <ButtonSmall bgcolor="#ff8858">Revisar novamente</ButtonSmall>
-
-        <HiOutlineTrash />
+        {
+          data.status === StatusTypes.REVIEW ? 
+          (
+            <>
+              <ButtonSmall onClick={() => actionCard(data, 'REPROVED')} bgcolor="rgb(255, 145, 154)" >Reprovar</ButtonSmall>
+              <ButtonSmall onClick={() => actionCard(data, 'APPROVED')} bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
+            </>
+          )
+          :
+          <ButtonSmall onClick={() => actionCard(data, 'REVIEW')} bgcolor="#ff8858">Revisar novamente</ButtonSmall>
+        }
+        <HiOutlineTrash onClick={() => actionCard(data, 'DELETE')}/>
       </S.Actions>
     </S.Card>
   );
