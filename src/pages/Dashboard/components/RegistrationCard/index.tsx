@@ -1,18 +1,18 @@
-import { ButtonSmall } from "~/components/Buttons";
-import * as S from "./styles";
+import { ButtonSmall } from "~/components/atoms/Buttons"
+import * as S from "./styles"
 import {
   HiOutlineMail,
   HiOutlineUser,
   HiOutlineCalendar,
   HiOutlineTrash,
-} from "react-icons/hi";
-import { UserData } from "~/types";
-import { StatusTypes } from "~/utils/consts";
+} from "react-icons/hi"
+import { UserData } from "~/types"
+import { StatusTypes, StatusVariants } from "~/utils/consts"
 
 type Props = {
-  data: UserData;
-  actionCard: (data: UserData, status: string) => void
-};
+  data: UserData
+  actionCard: (data: UserData, status: StatusVariants) => void
+}
 
 const RegistrationCard = ({data, actionCard}: Props) => {
   return (
@@ -44,7 +44,7 @@ const RegistrationCard = ({data, actionCard}: Props) => {
         <HiOutlineTrash onClick={() => actionCard(data, 'DELETE')}/>
       </S.Actions>
     </S.Card>
-  );
-};
+  )
+}
 
-export default RegistrationCard;
+export default RegistrationCard

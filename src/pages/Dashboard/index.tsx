@@ -1,56 +1,91 @@
-import Collumns from "./components/Columns";
-import * as S from "./styles";
-import { SearchBar } from "./components/Searchbar";
-import { UserData } from "~/types";
-import useApi from "~/hooks/useApi";
-import { useEffect } from "react";
+import Collumns from "./components/Columns"
+import { useSnackbar } from 'react-simple-snackbar'
+import * as S from "./styles"
+import { SearchBar } from "./components/Searchbar"
+import { UserData } from "~/types"
+import useApi from "~/hooks/useApi"
+import { useCallback, useEffect, useState } from "react"
+import CustomModal from "~/components/molecules/CustomModal"
+import { StatusVariants, Variant } from "~/utils/consts"
 
 const DashboardPage = () => {
-  const { data, loading, error, sendRequest } = useApi<UserData[]>();
+  const { data, loading, error, sendRequest } = useApi<UserData[]>()
+  const [openSnackbar] = useSnackbar()
+  const [openModal, setOpenModal] = useState(false)
+  const [variant, setVariant] = useState(Variant.DELETE)
+  const [user, setUser] = useState<UserData | null>(null)
+  const [newStatus, setNewStatus] = useState<string>('')
+
+  const sendData = (method: 'GET' | 'PUT' | 'DELETE', url: string, payload?: any) => {
+    sendRequest({
+      method,
+      url: `${import.meta.env.VITE_API_HOST}${url}`,
+      ...(payload && { data: payload }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+
+  const getData = useCallback(() => {
+    sendData('GET', '/registrations')
+  }, [])
 
   useEffect(() => {
-    sendRequest({ method: 'GET', url: `${import.meta.env.VITE_API_HOST}/registrations` })
-}, [])
+    getData()
+  }, [getData])
 
-  if (loading) {
-    return <div>Loading...</div>;
+  useEffect(() => {
+    if (error) {
+      setVariant(Variant.ERROR)
+      setOpenModal(true)
+    }
+  }, [error])
+
+  const handleSearch = (cpf: string) => {
+    sendData('GET', `/registrations?cpf=${cpf}`)
   }
 
-  if (error) {
-      return <div>{error}</div>;
+  const handleAction = (selectedUser: UserData, status: string) => {
+    setUser(selectedUser)
+    setNewStatus(status)
+    setVariant(Variant[status as StatusVariants] || Variant.DELETE)
+    setOpenModal(true)
   }
+
+  const confirmAction = () => {
+    if (!user) return
+
+    if (newStatus === 'DELETE') {
+      sendData('DELETE', `/registrations/${user.id}`, user)
+      openSnackbar('Usuário removido com sucesso!')
+    } else {
+     sendData('PUT', `/registrations/${user.id}`, { ...user, status: newStatus })
+      openSnackbar('Alteração aplicada com sucesso!')
+    }
+    setOpenModal(false)
+  }
+
   return (
     <S.Container>
       <SearchBar 
-        refreshData={
-          () => {
-            sendRequest({ method: 'GET', url: `${import.meta.env.VITE_API_HOST}/registrations` })
-          }
-        }
+        refreshData={getData}
+        searchByCpf={handleSearch}
       />
       <Collumns 
         registrations={data}
-        actionCard={
-          (user, newStatus) => {
-            if (newStatus !== 'DELETE') {
-              sendRequest({ 
-                headers: {'Content-Type': 'application/json'},
-                method: 'PUT', 
-                url: `${import.meta.env.VITE_API_HOST}/registrations/${user.id}`, 
-                data: {...user, status: newStatus} 
-              })
-            } else {
-              sendRequest({ 
-                headers: {'Content-Type': 'application/json'},
-                method: 'DELETE', 
-                url: `${import.meta.env.VITE_API_HOST}/registrations/${user.id}`, 
-                data: user
-              })
-            }
-        }
-      }
+        loading={loading}
+        actionCard={handleAction}
+      />
+      <CustomModal 
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        title={variant.title}
+        description={variant.description}
+        isError={Boolean(error)}
+        actionConfirmButton={confirmAction}
+        actionCancelButton={() => setOpenModal(false)}
       />
     </S.Container>
-  );
-};
-export default DashboardPage;
+  )
+}
+
+export default DashboardPage

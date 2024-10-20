@@ -8,12 +8,12 @@ type Props = {
 
 const TextField = (props: Props) => {
   return (
-    <div>
+    <div data-testid="text-field">
       <label htmlFor={props.id}>{props.label}</label>
       <Input {...props} errorStyle={Boolean(props.error)}/>
       {props.error && <span style={{fontSize: 12, color: 'red'}}>{props.error}</span>}
     </div>
-  );
-};
+  )
+}
 
-export default TextField;
+export default TextField

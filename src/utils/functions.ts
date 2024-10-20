@@ -1,46 +1,46 @@
 
 export const validateEmail = (email: string): boolean =>  {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    return emailRegex.test(email);
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    return emailRegex.test(email)
 }
 
 export const validateDocument = (document: string): boolean => {
-    document = document.replace(/[^\d]/g, '');
+    document = document.replace(/[^\d]/g, '')
     
     if (document.length !== 11 || /^(\d)\1+$/.test(document)) {
-        return false;
+        return false
     }
 
-    let sum: number;
-    let rest: number;
+    let sum: number
+    let rest: number
 
     // Validação do primeiro dígito verificador
-    sum = 0;
+    sum = 0
     for (let i = 1; i <= 9; i++) {
         sum += parseInt(document.substring(i - 1, i)) * (11 - i);
     }
-    rest = (sum * 10) % 11;
+    rest = (sum * 10) % 11
     if ((rest === 10) || (rest === 11)) {
-        rest = 0;
+        rest = 0
     }
     if (rest !== parseInt(document.substring(9, 10))) {
-        return false;
+        return false
     }
 
     // Validação do segundo dígito verificador
-    sum = 0;
+    sum = 0
     for (let i = 1; i <= 10; i++) {
-        sum += parseInt(document.substring(i - 1, i)) * (12 - i);
+        sum += parseInt(document.substring(i - 1, i)) * (12 - i)
     }
-    rest = (sum * 10) % 11;
+    rest = (sum * 10) % 11
     if ((rest === 10) || (rest === 11)) {
-        rest = 0;
+        rest = 0
     }
     if (rest !== parseInt(document.substring(10, 11))) {
-        return false;
+        return false
     }
 
-    return true;
+    return true
 }
 
 export const validateName = (name: string): boolean => {

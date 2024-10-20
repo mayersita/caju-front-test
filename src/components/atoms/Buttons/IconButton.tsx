@@ -24,5 +24,5 @@ export const IconButton = (props: IconButtonProps) => {
     <_IconButtonStyled {...props}>
       {props.children}
     </_IconButtonStyled>
-  );
-};
+  )
+}

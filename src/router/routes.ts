@@ -3,6 +3,6 @@ const routes = {
   dashboard: "/dashboard",
   history: "/history",
   newUser: "/new-user"
-};
+}
 
-export default routes;
+export default routes
