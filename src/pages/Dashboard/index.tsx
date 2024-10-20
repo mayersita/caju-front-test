@@ -19,7 +19,7 @@ const DashboardPage = () => {
   const sendData = (method: 'GET' | 'PUT' | 'DELETE', url: string, payload?: any) => {
     sendRequest({
       method,
-      url: `${import.meta.env.VITE_API_HOST}${url}`,
+      url: `${process.env.VITE_API_HOST}${url}`,
       ...(payload && { data: payload }),
       headers: { 'Content-Type': 'application/json' },
     })

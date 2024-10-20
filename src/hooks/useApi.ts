@@ -18,7 +18,7 @@ const useApi = <T>() => {
           setData(response.data) 
         } else if (response && config.method !== 'GET') {
           // Chamando get pra mostrar dados atualizados na tela
-          const responseGet = await axios.get(`${import.meta.env.VITE_API_HOST}/registrations`)
+          const responseGet = await axios.get(`${process.env.VITE_API_HOST}/registrations`)
           setData(responseGet.data) 
         }
         setLoading(false)

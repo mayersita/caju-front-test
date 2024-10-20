@@ -1,4 +1,5 @@
 /** @type {import('jest').Config} */
+import './__mocks__/importMetaMock.js';
 export default {
   verbose: true,
   preset: "ts-jest",

@@ -9,8 +9,8 @@ type Props = {
 const TextField = (props: Props) => {
   return (
     <div data-testid="text-field">
-      <label htmlFor={props.id}>{props.label}</label>
-      <Input {...props} errorStyle={Boolean(props.error)}/>
+      <label htmlFor={props.id} aria-labelledby={props.label}>{props.label}</label>
+      <Input id={props.id} {...props} errorStyle={Boolean(props.error)}/>
       {props.error && <span style={{fontSize: 12, color: 'red'}}>{props.error}</span>}
     </div>
   )

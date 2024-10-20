@@ -118,7 +118,7 @@ const NewUserPage = () => {
           sendRequest({ 
             headers: {'Content-Type': 'application/json'},
             method: 'POST', 
-            url: `${import.meta.env.VITE_API_HOST}/registrations`, 
+            url: `${process.env.VITE_API_HOST}/registrations`, 
             data: {
               email,
               employeeName: name,
