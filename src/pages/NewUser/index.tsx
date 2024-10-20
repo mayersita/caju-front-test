@@ -66,6 +66,7 @@ const NewUserPage = () => {
         </IconButton>
         
         <TextField 
+          id="nome"
           placeholder="Preencha o nome completo" 
           label="Nome completo" 
           value={name}
@@ -75,6 +76,7 @@ const NewUserPage = () => {
         />
         
         <TextField 
+          id="email"
           placeholder="Preencha o e-mail" 
           label="E-mail" 
           type="email" 
@@ -85,6 +87,7 @@ const NewUserPage = () => {
         />
         
         <TextField 
+          id="cpf"
           label="CPF"
           type="text"
           value={document}
@@ -96,6 +99,7 @@ const NewUserPage = () => {
         />
         
         <TextField 
+          id="data"
           label="Data de admissão" 
           type="date" 
           value={admissionDate} 
