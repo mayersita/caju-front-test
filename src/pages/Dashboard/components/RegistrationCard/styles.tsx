@@ -14,6 +14,10 @@ export const Card = styled.div`
     margin: 0;
   }
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const IconAndText = styled.div`
@@ -22,13 +26,24 @@ export const IconAndText = styled.div`
   gap: 8px;
 `;
 
+export const AlignButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: baseline;
+  justify-content: space-between;
+  svg {
+    cursor: pointer;
+  }
+`
+
 export const Actions = styled.div`
+  width: 80%;
   margin-top: 8px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   gap: 4px;
-
   svg {
     cursor: pointer;
   }

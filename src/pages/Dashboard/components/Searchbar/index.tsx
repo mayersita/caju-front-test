@@ -27,7 +27,7 @@ export const SearchBar = ({refreshData, searchByCpf}: Props) => {
     if (document.length === 14 && validateDocument(removeMask(document))) {
       searchByCpf(removeMask(document))
     }
-  },[document, searchByCpf])
+  },[document])
   
   return (
     <S.Container data-testid="search-bar">

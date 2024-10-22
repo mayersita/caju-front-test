@@ -29,20 +29,22 @@ const RegistrationCard = ({data, actionCard}: Props) => {
         <HiOutlineCalendar />
         <span>{data.admissionDate}</span>
       </S.IconAndText>
-      <S.Actions>
-        {
-          data.status === StatusTypes.REVIEW ? 
-          (
-            <>
-              <ButtonSmall onClick={() => actionCard(data, 'REPROVED')} $bgcolor="rgb(255, 145, 154)" >Reprovar</ButtonSmall>
-              <ButtonSmall onClick={() => actionCard(data, 'APPROVED')} $bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
-            </>
-          )
-          :
-          <ButtonSmall onClick={() => actionCard(data, 'REVIEW')} $bgcolor="#ff8858">Revisar novamente</ButtonSmall>
-        }
-        <HiOutlineTrash data-testid="delete-icon" onClick={() => actionCard(data, 'DELETE')}/>
-      </S.Actions>
+      <S.AlignButtons>
+        <S.Actions>
+          {
+            data.status === StatusTypes.REVIEW ? 
+            (
+              <>
+                <ButtonSmall onClick={() => actionCard(data, 'REPROVED')} $bgcolor="rgb(255, 145, 154)" >Reprovar</ButtonSmall>
+                <ButtonSmall onClick={() => actionCard(data, 'APPROVED')} $bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
+              </>
+            )
+            :
+            <ButtonSmall onClick={() => actionCard(data, 'REVIEW')} $bgcolor="#ff8858">Revisar novamente</ButtonSmall>
+          }
+        </S.Actions>
+        <HiOutlineTrash data-testid="delete-icon" onClick={() => actionCard(data, 'DELETE')}/>  
+      </S.AlignButtons>
     </S.Card>
   )
 }

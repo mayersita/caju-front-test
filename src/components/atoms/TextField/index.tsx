@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from "react";
-import { Input } from "./styles";
+import { Input, InputDiv } from "./styles";
 
 type Props = {
   label?: string;
@@ -8,11 +8,11 @@ type Props = {
 
 const TextField = (props: Props) => {
   return (
-    <div data-testid="text-field">
+    <InputDiv data-testid="text-field">
       <label htmlFor={props.id} aria-labelledby={props.label}>{props.label}</label>
       <Input id={props.id} {...props} $errorStyle={Boolean(props.error)}/>
       {props.error && <span style={{fontSize: 12, color: 'red'}}>{props.error}</span>}
-    </div>
+    </InputDiv>
   )
 }
 

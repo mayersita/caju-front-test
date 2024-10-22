@@ -5,6 +5,11 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const Actions = styled.div`
@@ -12,4 +17,12 @@ export const Actions = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 16px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
 `;

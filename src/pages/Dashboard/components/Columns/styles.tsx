@@ -22,6 +22,14 @@ export const Container = styled.div`
   grid-gap: 24px;
   justify-content: center;
   margin-top: 24px;
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: 24px;
+    justify-content: center;
+    margin-top: 24px;
+  }
 `;
 
 export const Column = styled.div<{ $status: any }>`
@@ -31,6 +39,11 @@ export const Column = styled.div<{ $status: any }>`
   border-radius: 32px;
   min-height: 80vh;
   max-height: 80vh;
+
+  @media (max-width: 768px) {
+    min-height: 270px;
+    overflow-x: scroll;
+  }
 `;
 
 export const TitleColumn = styled.h3<{ $status: any }>`
@@ -42,4 +55,10 @@ export const TitleColumn = styled.h3<{ $status: any }>`
 export const CollumContent = styled.div`
   overflow: auto;
   max-height: 85%;
+
+  @media (max-width: 768px) {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+  }
 `;

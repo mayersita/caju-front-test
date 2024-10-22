@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Input = styled.input<{ $errorStyle?: boolean }>`
   margin-top: 8px;
-  padding: 0 8px;
+  padding: 0 0 0 8px;
   vertical-align: middle;
   border-radius: 2px;
   width: 100%;
@@ -21,3 +21,9 @@ export const Input = styled.input<{ $errorStyle?: boolean }>`
     box-shadow: inset 0 0 0 1px #007c89;
   }
 `;
+
+export const InputDiv = styled.div`
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`

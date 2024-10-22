@@ -39,8 +39,8 @@ const CustomModal = ({
       }}
     >
       <Container>
-        <h2>{title}</h2>
-        <h4>{description}</h4>
+        <h3>{title}</h3>
+        <p>{description}</p>
       </Container>
       {
         isError ?
@@ -56,10 +56,10 @@ const CustomModal = ({
             <Loading width={'100px'} height={'100px'}/>
           :
           <LineButtons>
-            <Button width='180px' onClick={() => actionCancelButton()} $bgColor='#EC162F'>
+            <Button width='180px' minWidth="110px" onClick={() => actionCancelButton()} $bgColor='#EC162F'>
               Cancelar
             </Button>
-            <Button width='180px' onClick={() => actionConfirmButton()} >
+            <Button width='180px' minWidth="110px" onClick={() => actionConfirmButton()} >
               Confirmar
             </Button>
           </LineButtons>

@@ -13,7 +13,7 @@ const Loading = ({ width, height}: Props) => {
             cx="25"
             cy="25"
             r="20"
-            stroke="#E80537"
+            stroke="#fff"
             strokeWidth="4"
             strokeLinecap="round"
             strokeDasharray="31.415, 31.415"
