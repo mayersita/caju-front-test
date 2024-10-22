@@ -26,7 +26,7 @@ jobs:
 
       # 4. Build do projeto
       - name: Build project
-        run: vite build
+        run: npm run build
 
       # 5. Deploy para o GitHub Pages
       - name: Deploy to GitHub Pages
