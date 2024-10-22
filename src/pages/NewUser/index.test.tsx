@@ -104,7 +104,7 @@ describe('NewUserPage', () => {
     const cpfInput = screen.getByLabelText(/cpf/i);
     fireEvent.change(cpfInput, { target: { value: '12345678901' } });
     
-    expect(cpfInput.value).toBe('123.456.789-01');
+    expect((cpfInput as HTMLInputElement).value).toBe('123.456.789-01');
   });
 
   
