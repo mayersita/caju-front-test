@@ -6,6 +6,7 @@ import EnvironmentPlugin from 'vite-plugin-environment';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/caju-front-test/', 
   plugins: [react(), eslintPlugin(),  EnvironmentPlugin({
     VITE_API_HOST: 'http://localhost:3000',
   })],
