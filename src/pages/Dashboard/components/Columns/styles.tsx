@@ -24,18 +24,18 @@ export const Container = styled.div`
   margin-top: 24px;
 `;
 
-export const Column = styled.div<{ status: any }>`
+export const Column = styled.div<{ $status: any }>`
   height: auto;
-  background-color: ${({ status }) =>
-    registrationStatusStyles[status].background};
+  background-color: ${({ $status }) =>
+    registrationStatusStyles[$status].background};
   border-radius: 32px;
   min-height: 80vh;
   max-height: 80vh;
 `;
 
-export const TitleColumn = styled.h3<{ status: any }>`
+export const TitleColumn = styled.h3<{ $status: any }>`
   margin: 0px;
-  color: ${({ status }) => registrationStatusStyles[status].title};
+  color: ${({ $status }) => registrationStatusStyles[$status].title};
   margin: 24px;
 `;
 

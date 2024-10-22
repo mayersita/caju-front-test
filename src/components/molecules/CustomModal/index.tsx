@@ -26,6 +26,8 @@ const CustomModal = ({
 }: Props) => {
   return(
     <CModal
+      appElement={document.getElementById('root') as HTMLElement}
+      ariaHideApp={process.env.NODE_ENV !== 'test'}
       data-testid="custom-modal"
       isOpen={openModal}
       onRequestClose={() => setOpenModal(false)}
@@ -38,7 +40,7 @@ const CustomModal = ({
     >
       <Container>
         <h2>{title}</h2>
-        <caption>{description}</caption>
+        <h4>{description}</h4>
       </Container>
       {
         isError ?
@@ -51,10 +53,10 @@ const CustomModal = ({
         <>
         {
           loading ? 
-            <Loading width={'100px'} height={'100px'} />
+            <Loading width={'100px'} height={'100px'}/>
           :
           <LineButtons>
-            <Button width='180px' onClick={() => actionCancelButton()} bgColor='#EC162F'>
+            <Button width='180px' onClick={() => actionCancelButton()} $bgColor='#EC162F'>
               Cancelar
             </Button>
             <Button width='180px' onClick={() => actionConfirmButton()} >

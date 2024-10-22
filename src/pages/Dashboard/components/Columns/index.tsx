@@ -20,12 +20,12 @@ type Props = {
 }
 const Collumns = ({registrations, actionCard, loading}: Props) => {
   return (
-    <S.Container>
+    <S.Container data-testid="columns">
       {allColumns.map((collum) => {
         return (
-          <S.Column status={collum.status} key={collum.title}>
+          <S.Column $status={collum.status} key={collum.title}>
             <>
-              <S.TitleColumn status={collum.status}>
+              <S.TitleColumn $status={collum.status}>
                 {collum.title}
               </S.TitleColumn>
               <S.CollumContent> 

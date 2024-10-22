@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.button<{ width?: string, bgColor?: string}>`
+const Button = styled.button<{ width?: string, $bgColor?: string}>`
   width: ${(props) => props.width ?? ''};
   outline: none;
   display: flex;
@@ -9,7 +9,7 @@ const Button = styled.button<{ width?: string, bgColor?: string}>`
   border: none;
   border-radius: 36px;
   padding: 8px 32px;
-  background-color:  ${(props) => props.bgColor ? props.bgColor : '#64a98c'};
+  background-color:  ${(props) => props.$bgColor ? props.$bgColor : '#64a98c'};
   cursor: pointer;
   height: 56px;
   color: #fff;
@@ -19,7 +19,7 @@ const Button = styled.button<{ width?: string, bgColor?: string}>`
 `
 
 export const ButtonSmall = styled.button<{
-  bgcolor?: string
+  $bgcolor?: string
   color?: string
 }>`
   font-size: 12px;
@@ -27,7 +27,7 @@ export const ButtonSmall = styled.button<{
   border-radius: 4px;
   border: none;
   padding: 4px 16px;
-  background-color: ${(props) => props.bgcolor ?? 'none'};
+  background-color: ${(props) => props.$bgcolor ?? 'none'};
   color: ${(props) => props.color ?? "#000"};
   cursor: pointer;
 `

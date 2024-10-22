@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const Input = styled.input<{ errorStyle?: boolean }>`
+export const Input = styled.input<{ $errorStyle?: boolean }>`
   margin-top: 8px;
   padding: 0 8px;
   vertical-align: middle;
@@ -9,7 +9,7 @@ export const Input = styled.input<{ errorStyle?: boolean }>`
   width: 100%;
   min-height: 36px;
   background-color: #ffffff;
-  border: ${(props) => props.errorStyle ? '1px solid red' : '1px solid rgba(36, 28, 21, 0.3)'};
+  border: ${(props) => props.$errorStyle ? '1px solid red' : '1px solid rgba(36, 28, 21, 0.3)'};
   transition: all 0.2s ease-in-out 0s;
   font-size: 16px;
   line-height: 18px;

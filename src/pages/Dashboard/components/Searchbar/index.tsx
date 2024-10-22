@@ -30,7 +30,7 @@ export const SearchBar = ({refreshData, searchByCpf}: Props) => {
   },[document, searchByCpf])
   
   return (
-    <S.Container>
+    <S.Container data-testid="search-bar">
       <TextField 
         placeholder="Digite um CPF válido" 
         type="text"
@@ -39,7 +39,7 @@ export const SearchBar = ({refreshData, searchByCpf}: Props) => {
         onChange={(e) => setDocument(cpfMask(e.target.value))} 
       />
       <S.Actions>
-        <IconButton aria-label="refetch" onClick={refreshData}>
+        <IconButton data-testid="refresh-button" aria-label="refetch" onClick={refreshData}>
           <HiRefresh />
         </IconButton>
         <Button onClick={goToNewAdmissionPage}>Nova Admissão</Button>

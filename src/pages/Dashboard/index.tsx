@@ -65,12 +65,14 @@ const DashboardPage = () => {
   }
 
   return (
-    <S.Container>
+    <S.Container data-testid="dashboard-container">
       <SearchBar 
+        data-testid="dashboard-search"
         refreshData={getData}
         searchByCpf={handleSearch}
       />
       <Collumns 
+        data-testid="dashboard-columns"
         registrations={data}
         loading={loading}
         actionCard={handleAction}

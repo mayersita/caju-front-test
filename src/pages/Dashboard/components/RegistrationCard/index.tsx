@@ -16,7 +16,7 @@ type Props = {
 
 const RegistrationCard = ({data, actionCard}: Props) => {
   return (
-    <S.Card>
+    <S.Card data-testid="card">
       <S.IconAndText>
         <HiOutlineUser />
         <h3>{data.employeeName}</h3>
@@ -34,14 +34,14 @@ const RegistrationCard = ({data, actionCard}: Props) => {
           data.status === StatusTypes.REVIEW ? 
           (
             <>
-              <ButtonSmall onClick={() => actionCard(data, 'REPROVED')} bgcolor="rgb(255, 145, 154)" >Reprovar</ButtonSmall>
-              <ButtonSmall onClick={() => actionCard(data, 'APPROVED')} bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
+              <ButtonSmall onClick={() => actionCard(data, 'REPROVED')} $bgcolor="rgb(255, 145, 154)" >Reprovar</ButtonSmall>
+              <ButtonSmall onClick={() => actionCard(data, 'APPROVED')} $bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
             </>
           )
           :
-          <ButtonSmall onClick={() => actionCard(data, 'REVIEW')} bgcolor="#ff8858">Revisar novamente</ButtonSmall>
+          <ButtonSmall onClick={() => actionCard(data, 'REVIEW')} $bgcolor="#ff8858">Revisar novamente</ButtonSmall>
         }
-        <HiOutlineTrash onClick={() => actionCard(data, 'DELETE')}/>
+        <HiOutlineTrash data-testid="delete-icon" onClick={() => actionCard(data, 'DELETE')}/>
       </S.Actions>
     </S.Card>
   )

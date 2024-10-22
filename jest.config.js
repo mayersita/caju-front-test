@@ -9,6 +9,7 @@ export default {
     "^.+\\.(js|jsx)$": "babel-jest",
   },
   moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.js',
     "^~/(.+)": "<rootDir>/src/$1",
   },
 //   setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
