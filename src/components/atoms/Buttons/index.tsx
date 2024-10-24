@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.button<{ width?: string, $bgColor?: string, minWidth?: string, $isDisabled: boolean}>`
+const Button = styled.button<{ width?: string, $bgColor?: string, minWidth?: string, $isDisabled?: boolean}>`
   width: ${(props) => props.width ?? ''};
   outline: none;
   display: flex;
