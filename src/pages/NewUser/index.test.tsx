@@ -65,7 +65,7 @@ describe('NewUserPage', () => {
     fireEvent.change(nameInput, { target: { value: '123' } });
     fireEvent.blur(nameInput);
     
-    expect(screen.getByText(/nome inválido/i)).toBeInTheDocument();
+    expect(screen.getByText(/Nome inválido. Por favor, preencha o nome completo./i)).toBeInTheDocument();
   });
 
   test('shows error for invalid email', () => {
@@ -75,7 +75,7 @@ describe('NewUserPage', () => {
     fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
     fireEvent.blur(emailInput);
     
-    expect(screen.getByText(/e-mail inválido/i)).toBeInTheDocument();
+    expect(screen.getByText(/E-mail inválido. Insira um e-mail válido./i)).toBeInTheDocument();
   });
 
   test('shows error for invalid cpf', () => {
@@ -85,7 +85,7 @@ describe('NewUserPage', () => {
     fireEvent.change(cpfInput, { target: { value: 'invalid-cpf' } });
     fireEvent.blur(cpfInput);
     
-    expect(screen.getByText(/cpf inválido/i)).toBeInTheDocument();
+    expect(screen.getByText(/CPF inválido. Verifique o formato./i)).toBeInTheDocument();
   });
 
   test('shows error for invalid data', () => {
@@ -95,7 +95,7 @@ describe('NewUserPage', () => {
     fireEvent.change(dataInput, { target: { value: '' } });
     fireEvent.blur(dataInput);
     
-    expect(screen.getByText(/por favor escolha uma data válida/i)).toBeInTheDocument();
+    expect(screen.getByText(/Por favor, selecione uma data válida./i)).toBeInTheDocument();
   });
   
   test('applies CPF mask correctly', () => {
@@ -153,7 +153,7 @@ describe('NewUserPage', () => {
 
     const submitButton = screen.getByText('Cadastrar');
     fireEvent.click(submitButton);
-    expect(mockOpenSnackbar).toHaveBeenCalledWith('Preencha todos os campos antes de continuar!');
+    expect(mockOpenSnackbar).toHaveBeenCalledWith('Preencha os campos corretamente antes de continuar!');
   });
 
 });

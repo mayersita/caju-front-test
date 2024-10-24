@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.button<{ width?: string, $bgColor?: string, minWidth?: string}>`
+const Button = styled.button<{ width?: string, $bgColor?: string, minWidth?: string, $isDisabled: boolean}>`
   width: ${(props) => props.width ?? ''};
   outline: none;
   display: flex;
@@ -10,7 +10,7 @@ const Button = styled.button<{ width?: string, $bgColor?: string, minWidth?: str
   border-radius: 36px;
   padding: 8px 32px;
   background-color:  ${(props) => props.$bgColor ? props.$bgColor : '#64a98c'};
-  cursor: pointer;
+  cursor: ${(props) => props.$isDisabled ? 'not-allowed' :  'pointer'};
   height: 56px;
   color: #fff;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

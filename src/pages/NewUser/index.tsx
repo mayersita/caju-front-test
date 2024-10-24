@@ -14,10 +14,6 @@ import { useSnackbar } from 'react-simple-snackbar'
 import CustomModal from "~/components/molecules/CustomModal"
 import { Variant } from "~/utils/consts"
 
-const validateField = (field: string, validator: (value: string) => boolean): boolean => {
-  return Boolean(field) && validator(field)
-}
-
 const NewUserPage = () => {
   const { loading, error, sendRequest } = useApi<UserData[]>()
   const [openSnackbar] = useSnackbar()
@@ -29,7 +25,12 @@ const NewUserPage = () => {
   const [name, setName] = useState('')
   const [document, setDocument] = useState('')
   const [admissionDate, setAdmissionDate] = useState('')
-  const [showError, setShowError] = useState('')
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    document: '',
+    admissionDate: '',
+  });
 
   const goToHome = () => history.push(routes.dashboard)
 
@@ -40,21 +41,41 @@ const NewUserPage = () => {
     }
   }, [error])
 
-  const invalidUser = (): boolean => !name || !email || !document || !admissionDate
+  const invalidUser = () => {
+    return (
+      !name || Boolean(errors.name) || 
+      !email || Boolean(errors.email) || 
+      !document || Boolean(errors.document) || 
+      !admissionDate || Boolean(errors.admissionDate)
+    )
+  }
 
   const registerUser = () => {
     if (invalidUser()) {
-      openSnackbar('Preencha todos os campos antes de continuar!')
+      openSnackbar('Preencha os campos corretamente antes de continuar!')
     } else {
       setOpenModal(true)
     }
   }
 
   const handleValidation = (value: string, field: string, validator: (value: string) => boolean) => {
-    if (!validateField(value, validator)) {
-      setShowError(field)
+    const customErrorMessages: { [key: string]: string } = {
+      name: 'Nome inválido. Por favor, preencha o nome completo.',
+      email: 'E-mail inválido. Insira um e-mail válido.',
+      document: 'CPF inválido. Verifique o formato.',
+      admissionDate: 'Por favor, selecione uma data válida.',
+    }
+  
+    if (!validator(value)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [field]: customErrorMessages[field],
+      }))
     } else {
-      setShowError('')
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [field]: '',
+      }))
     }
   }
 
@@ -72,7 +93,7 @@ const NewUserPage = () => {
           value={name}
           onChange={(e) => setName(e.target.value)} 
           onBlur={() => handleValidation(name, 'name', validateName)}
-          error={showError === 'name' ? 'Nome inválido' : ''}
+          error={errors.name}
         />
         
         <TextField 
@@ -83,7 +104,7 @@ const NewUserPage = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)} 
           onBlur={() => handleValidation(email, 'email', validateEmail)}
-          error={showError === 'email' ? 'E-mail inválido' : ''}
+          error={errors.email}
         />
         
         <TextField 
@@ -95,7 +116,7 @@ const NewUserPage = () => {
           placeholder="000.000.000-00"
           onChange={(e) => setDocument(cpfMask(e.target.value))} 
           onBlur={() => handleValidation(removeMask(document), 'document', validateDocument)}
-          error={showError === 'document' ? 'CPF inválido' : ''}
+          error={errors.document}
         />
         
         <TextField 
@@ -105,10 +126,10 @@ const NewUserPage = () => {
           value={admissionDate} 
           onChange={(e) => setAdmissionDate(e.target.value)}
           onBlur={() => handleValidation(admissionDate, 'admissionDate', (val) => Boolean(val))}
-          error={showError === 'admissionDate' ? 'Por favor escolha uma data válida' : ''}
+          error={errors.admissionDate}
         />
         
-        <Button onClick={registerUser}>Cadastrar</Button>
+        <Button onClick={registerUser} $isDisabled={invalidUser()} >Cadastrar</Button>
       </S.Card>
       
       <CustomModal 
@@ -119,20 +140,24 @@ const NewUserPage = () => {
         loading={loading}
         isError={Boolean(error)}
         actionConfirmButton={() => {
-          sendRequest({ 
-            headers: {'Content-Type': 'application/json'},
-            method: 'POST', 
-            url: `${process.env.VITE_API_HOST}/registrations`, 
-            data: {
-              email,
-              employeeName: name,
-              cpf: removeMask(document),
-              admissionDate: formatDate(admissionDate),
-              status: 'REVIEW'
-            } 
-          })
-          setOpenModal(false)
-          openSnackbar('Usuário adicionado com sucesso!')
+          if (invalidUser()) {
+            openSnackbar('Verifique os campos incorretos e tente novamente!')
+          } else {
+            sendRequest({ 
+              headers: {'Content-Type': 'application/json'},
+              method: 'POST', 
+              url: `${process.env.VITE_API_HOST}/registrations`, 
+              data: {
+                email,
+                employeeName: name,
+                cpf: removeMask(document),
+                admissionDate: formatDate(admissionDate),
+                status: 'REVIEW'
+              } 
+            })
+            setOpenModal(false)
+            openSnackbar('Usuário adicionado com sucesso!')
+          }
         }}
         actionCancelButton={() => setOpenModal(false)}
       />
